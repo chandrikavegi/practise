@@ -1,0 +1,27 @@
+<aura:component controller="tk_Callout" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction">
+    <aura:attribute name="accept" type="List" default="['.pdf','.docx']"/>
+    <aura:attribute name="multiple" type="Boolean" default="true"/>
+    <aura:attribute name="disabled" type="Boolean" default="false"/>
+    <aura:attribute name= "fileid" type = "string"/>
+    <!--<aura:attribute name="rcdid" type = "string" default = "0010o00002DwGZUAA3"/>-->
+    <aura:attribute name="body" type = "string" default = 'testing' />
+    <aura:attribute name="disable" type="Boolean" default="true"/>
+    <aura:attribute name="message" type="string"/>
+    <aura:attribute name= "loading" type= "boolean"/>
+    
+    <lightning:fileUpload  name="fileUploader"
+                          label= "File Upload"
+                          multiple="{!v.multiple}"
+                          accept="{!v.accept}"
+                          disabled="{!v.disabled}"
+                          recordId="{!v.recordId}"
+                          onuploadfinished="{! c.handleUploadFinished }"/>
+    <lightning:button label="parse" title="parse" onclick="{! c.callout }" disabled ="{!v.disable}" />
+    <div>
+        <aura:if isTrue="{!v.loading}">
+            <lightning:spinner alternativeText="Loading" size="small" />
+        </aura:if>
+        {!v.body}
+    </div>
+    <div class = "slds-text-color_error">{!v.message}</div>
+</aura:component>
